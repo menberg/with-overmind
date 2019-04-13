@@ -1,8 +1,8 @@
 import React from 'react'
-import { connect } from '../overmind'
+import { overmindHookFactory } from '../overmind'
 
-function Posts ({ overmind }) {
-  const { state, actions } = overmind
+const Posts = ({ overmind }) => {
+  const { state, actions } = overmindHookFactory()()
   if (state.isLoadingPosts) {
     return (
       <div>
@@ -40,4 +40,4 @@ function Posts ({ overmind }) {
   )
 }
 
-export default connect(Posts)
+export default Posts

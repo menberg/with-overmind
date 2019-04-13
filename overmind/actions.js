@@ -41,14 +41,3 @@ export const getPosts = async ({ state, effects }) => {
 export const changeShowCount = ({ state }, count) => {
   state.showCount = count
 }
-
-export const loadPage = ({ state, actions }, page) => {
-  switch (state.page) {
-    case 'index':
-      // Do some additional logic
-      break
-    case '10':
-      // Do some additional logic
-      break
-  }
-}

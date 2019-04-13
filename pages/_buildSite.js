@@ -1,22 +1,22 @@
 import React from 'react'
 import { Provider } from 'overmind-react'
 import { createOvermind } from 'overmind'
-import { config, overmindCreator, createConfigWithInitialState } from '../overmind'
-import App from '../components/App'
+import { configFactory, overmindFactory } from '../overmind'
 
 export default function buildSite (initPageAction, Site) {
   return class extends React.Component {
     static async getInitialProps ({ req, query }) {
       const isClient = !req
       if (isClient) {
-        const overmind = overmindCreator(createConfigWithInitialState({}))
+        // Client only:
+        const overmind = overmindFactory()
         if (overmind.actions[initPageAction]) {
           await overmind.actions[initPageAction]()
         }
         return {}
       }
-      // ifServer:
-      const overmind = createOvermind(config)
+      // Server only:
+      const overmind = overmindFactory(configFactory())
       if (overmind.actions[initPageAction]) {
         await overmind.actions[initPageAction]()
       }
@@ -24,17 +24,13 @@ export default function buildSite (initPageAction, Site) {
       return { initialState }
     }
     constructor (props) {
+      // Client only, rehydration:
       super(props)
       const { initialState } = props
-      this.overmind = overmindCreator(createConfigWithInitialState(initialState))
+      overmindFactory(configFactory(initialState))
     }
-    componentDidMount () {}
     render () {
-      return (
-        <Provider value={this.overmind}>
-          <Site />
-        </Provider>
-      )
+      return <Site />
     }
   }
 }

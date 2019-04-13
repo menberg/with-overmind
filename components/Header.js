@@ -1,12 +1,11 @@
 import React from 'react'
-import { connect } from '../overmind'
 import Link from 'next/link'
+import { overmindHookFactory } from '../overmind'
 
-function Header ({ overmind }) {
-  const { state, actions } = overmind
+const Header = () => {
+  const { state, actions } = overmindHookFactory()()
   return (
     <div>
-      <h1>{state.page}</h1>
       <div>
         <Link href='/'>
           <a>Home</a>
@@ -47,4 +46,4 @@ function Header ({ overmind }) {
   )
 }
 
-export default connect(Header)
+export default Header

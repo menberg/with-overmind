@@ -1,10 +1,8 @@
 import React from 'react'
-import { connect } from '../../overmind'
 import Header from '../Header'
 import Posts from '../Posts'
 
-function Index ({ overmind }) {
-  const { state, actions } = overmind
+const Index = () => {
   return (
     <div>
       <Header />
@@ -13,4 +11,4 @@ function Index ({ overmind }) {
   )
 }
 
-export default connect(Index)
+export default Index

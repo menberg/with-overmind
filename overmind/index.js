@@ -1,30 +1,31 @@
 import { Overmind, createOvermind } from 'overmind'
-import { createConnect } from 'overmind-react'
+import { createHook } from 'overmind-react'
 import { state } from './state'
 import * as actions from './actions'
 import * as effects from './effects'
 
-export const config = {
-  state,
-  actions,
-  effects
-}
-
-export const createConfigWithInitialState = initialState => {
+export const configFactory = (initialState = null) => {
   return {
-    state: initialState,
+    state: initialState || state,
     actions,
     effects
   }
 }
 
-export const connect = createConnect()
-
 let overmind = false
 
-export const overmindCreator = myConfig => {
-  if (!overmind) {
-    overmind = createOvermind(myConfig)
+export const overmindFactory = (config) => {
+  if (config && !overmind) {
+    overmind = createOvermind(config)
   }
   return overmind
+}
+
+let overmindHook = false
+
+export const overmindHookFactory = () => {
+  if (overmind && !overmindHook && overmind) {
+    overmindHook = createHook(overmind)
+  }
+  return overmindHook
 }
