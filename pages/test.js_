@@ -1,0 +1,5 @@
+/* import buildSite from './_buildSite'
+import Test from '../components/Sites/Test'
+
+export default buildSite('testRouted', Test)
+*/
