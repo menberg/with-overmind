@@ -1,4 +1,6 @@
-import buildSite from './_buildSite'
-import Index from '../components/Sites/Index'
+import React from 'react'
+import App from '../components/App'
 
-export default buildSite('initPage10', Index)
+export default () => {
+  return <App />
+}

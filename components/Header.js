@@ -12,11 +12,6 @@ const Header = () => {
         </Link>
       </div>
       <div>
-        <Link href='/3'>
-          <a>Show 3 posts</a>
-        </Link>
-      </div>
-      <div>
         <Link href='/10'>
           <a>Show 10 posts</a>
         </Link>

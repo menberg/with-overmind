@@ -1,29 +1,27 @@
 import React from 'react'
 
-export const initPageIndex = async ({ state, actions }, count) => {
+export const initPage_ = async ({ state, actions }, count) => {
   state.showCount = 3
   if (!state.posts || !state.posts.length) {
     await actions.getPosts()
   }
 }
 
-export const initPage3 = initPageIndex
-
-export const initPage10 = async ({ state, actions }, count) => {
+export const initPage_10 = async ({ state, actions }, count) => {
   state.showCount = 10
   if (!state.posts || !state.posts.length) {
     await actions.getPosts()
   }
 }
 
-export const initPage20 = async ({ state, actions }, count) => {
+export const initPage_20 = async ({ state, actions }, count) => {
   state.showCount = 20
   if (!state.posts || !state.posts.length) {
     await actions.getPosts()
   }
 }
 
-export const initPage50 = async ({ state, actions }, count) => {
+export const initPage_50 = async ({ state, actions }, count) => {
   state.showCount = 50
   if (!state.posts || !state.posts.length) {
     await actions.getPosts()
