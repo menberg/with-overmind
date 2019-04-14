@@ -1,43 +1,43 @@
 import React from 'react'
-import { overmindHookFactory } from '../overmind'
+import Link from 'next/link'
+import { useOvermind } from '../overmind'
 
-const Posts = ({ overmind }) => {
-  const { state, actions } = overmindHookFactory()()
-  if (state.isLoadingPosts) {
+export default ({ overmind }) => {
+  const { state, actions } = useOvermind()
+  if (state.isLoadingPosts || !state.posts) {
     return (
       <div>
-        <h4>Loading...</h4>
-      </div>
-    )
-  }
-  if (!state.posts) {
-    return (
-      <div>
-        <h4>No posts loaded.</h4>
+        <h4>Loading posts...</h4>
       </div>
     )
   }
   return (
     <div>
-      {state.isLoadingPosts ? (
-        <h4>Loading...</h4>
-      ) : (
-        <div>
-          Show count: {state.showCount}
-          <ul>
-            {state.posts.slice(0, state.showCount).map((post, index) => (
-              <li key={post.id}>
-                <h4>
+      <h4>Show count</h4>
+      <input
+        type='number'
+        min='0'
+        max='100'
+        step='1'
+        value={state.showCount}
+        onChange={event =>
+          actions.changeShowCount(Math.floor(event.target.value))
+        }
+      />
+      <ul>
+        {state.posts.slice(0, state.showCount).map((post, index) => (
+          <li key={post.id}>
+            <h4>
+              <Link href={`/post?id=${post.id}`} as={`/post/${post.id}`}>
+                <a>
                   {index + 1}. {post.title}
-                </h4>
-                {post.body}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+                </a>
+              </Link>
+            </h4>
+            {post.body}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
-
-export default Posts

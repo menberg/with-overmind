@@ -1,6 +1,12 @@
 import React from 'react'
-import App from '../components/App'
+import Header from '../components/Header'
+import Posts from '../components/Posts'
 
 export default () => {
-  return <App />
+  return (
+    <div>
+      <Header />
+      <Posts />
+    </div>
+  )
 }

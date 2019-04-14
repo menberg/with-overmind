@@ -13,19 +13,19 @@ export const configFactory = (initialState = null) => {
 }
 
 let overmind = false
+export let useOvermind = false
 
-export const overmindFactory = (config) => {
+export const overmindFactory = (config, isServer = false) => {
+  if (isServer) {
+    // always flush overmind for new server request
+    overmind = createOvermind(configFactory())
+    useOvermind = false
+  }
   if (config && !overmind) {
     overmind = createOvermind(config)
   }
-  return overmind
-}
-
-let overmindHook = false
-
-export const overmindHookFactory = () => {
-  if (overmind && !overmindHook) {
-    overmindHook = createHook(overmind)
+  if (overmind && !useOvermind) {
+    useOvermind = createHook(overmind)
   }
-  return overmindHook
+  return overmind
 }

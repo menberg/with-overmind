@@ -1,6 +1,5 @@
 import React from 'react'
 import App, { Container } from 'next/app'
-import { createOvermind } from 'overmind'
 import { configFactory, overmindFactory } from '../overmind'
 
 class MyApp extends App {
@@ -15,7 +14,7 @@ class MyApp extends App {
       const initPageAction = `initPage${pageName}`
       const overmind = overmindFactory()
       if (overmind.actions[initPageAction]) {
-        await overmind.actions[initPageAction]()
+        await overmind.actions[initPageAction](ctx.query)
       }
       return {}
     }
@@ -23,9 +22,9 @@ class MyApp extends App {
     if (isServer) {
       const pageName = router.pathname.split('/').join('_')
       const initPageAction = `initPage${pageName}`
-      const overmind = overmindFactory(configFactory())
+      const overmind = overmindFactory(configFactory(), isServer)
       if (overmind.actions[initPageAction]) {
-        await overmind.actions[initPageAction]()
+        await overmind.actions[initPageAction](router.query)
       }
       const initialState = overmind.state
       return { initialState }
@@ -33,10 +32,11 @@ class MyApp extends App {
   }
 
   constructor (props) {
-    // Client only, rehydration:
     super(props)
     const { initialState } = props
-    overmindFactory(configFactory(initialState))
+    const isServer = typeof window === 'undefined'
+    const config = isServer ? configFactory() : configFactory(initialState)
+    overmindFactory(config, isServer)
   }
 
   render () {

@@ -1,18 +1,21 @@
 import React from 'react'
 
-export const initPage_ = async ({ state, actions }, count) => {
-  state.showCount = 3
+export const initPage_ = async ({ state, actions }, query) => {
   await actions.getPosts()
 }
 
-export const initPage_10 = async ({ state, actions }, count) => {
+export const initPage_10 = async ({ state, actions }, query) => {
   state.showCount = 10
   await actions.getPosts()
 }
 
-export const initPage_20 = async ({ state, actions }, count) => {
+export const initPage_20 = async ({ state, actions }, query) => {
   state.showCount = 20
   await actions.getPosts()
+}
+
+export const initPage_post = async ({ state, actions }, query) => {
+  await actions.getPost(query.id)
 }
 
 export const getPosts = async ({ state, effects }) => {
@@ -23,6 +26,14 @@ export const getPosts = async ({ state, effects }) => {
     )
     state.isLoadingPosts = false
   }
+}
+
+export const getPost = async ({ state, effects }, postId) => {
+  state.isLoadingPost = true
+  state.post = await effects.request(
+    `https://jsonplaceholder.typicode.com/posts/${postId}`
+  )
+  state.isLoadingPost = false
 }
 
 export const changeShowCount = ({ state }, count) => {

@@ -1,12 +1,12 @@
 import React from 'react'
 import Header from '../components/Header'
-import Posts from '../components/Posts'
+import Post from '../components/Post'
 
 export default () => {
   return (
     <div>
       <Header />
-      <Posts />
+      <Post />
     </div>
   )
 }
