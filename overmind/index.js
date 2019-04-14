@@ -24,7 +24,7 @@ export const overmindFactory = (config) => {
 let overmindHook = false
 
 export const overmindHookFactory = () => {
-  if (overmind && !overmindHook && overmind) {
+  if (overmind && !overmindHook) {
     overmindHook = createHook(overmind)
   }
   return overmindHook

@@ -22,11 +22,6 @@ const Header = () => {
         </Link>
       </div>
       <div>
-        <Link href='/50'>
-          <a>Show 50 posts</a>
-        </Link>
-      </div>
-      <div>
         <h4>Enter custom count</h4>
         <input
           type='number'
