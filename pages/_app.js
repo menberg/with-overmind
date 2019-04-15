@@ -1,6 +1,6 @@
 import React from 'react'
 import App, { Container } from 'next/app'
-import { configFactory, overmindFactory } from '../overmind'
+import { overmindFactory } from '../overmind'
 
 class MyApp extends App {
   static async getInitialProps ({ Component, router, ctx }) {
@@ -12,7 +12,7 @@ class MyApp extends App {
     if (isClient) {
       const pageName = ctx.pathname.split('/').join('_')
       const initPageAction = `initPage${pageName}`
-      const overmind = overmindFactory()
+      const overmind = overmindFactory({})
       if (overmind.actions[initPageAction]) {
         await overmind.actions[initPageAction](ctx.query)
       }
@@ -22,7 +22,7 @@ class MyApp extends App {
     if (isServer) {
       const pageName = router.pathname.split('/').join('_')
       const initPageAction = `initPage${pageName}`
-      const overmind = overmindFactory(configFactory(), isServer)
+      const overmind = overmindFactory({ isServer })
       if (overmind.actions[initPageAction]) {
         await overmind.actions[initPageAction](router.query)
       }
@@ -34,9 +34,7 @@ class MyApp extends App {
   constructor (props) {
     super(props)
     const { initialState } = props
-    const isServer = typeof window === 'undefined'
-    const config = isServer ? configFactory() : configFactory(initialState)
-    overmindFactory(config, isServer)
+    overmindFactory({ initialState })
   }
 
   render () {
