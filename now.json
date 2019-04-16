@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "regions": ["all"],
+  "regions": ["cdg1", "sfo1"],
   "builds": [
     {
       "src": "next.config.js",
