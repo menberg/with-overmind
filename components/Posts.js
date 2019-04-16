@@ -4,7 +4,10 @@ import { useOvermind } from '../overmind'
 
 export default ({ overmind }) => {
   const { state, actions } = useOvermind()
-  if (state.isLoadingPosts || !state.posts) {
+  const filteredPosts = state.useDerivedState
+    ? state.filteredPostsAsDerivedState
+    : state.filteredPostsAsGetter
+  if (state.isLoadingPosts || !filteredPosts) {
     return (
       <div>
         <h4>Loading posts...</h4>
@@ -24,13 +27,16 @@ export default ({ overmind }) => {
           actions.changeShowCount(Math.floor(event.target.value))
         }
       />
+      <h5 onClick={actions.switchStateMode}>
+        {state.useDerivedState ? 'Using Derived State' : 'Using Getter'}
+      </h5>
       <ul>
-        {state.posts.slice(0, state.showCount).map((post, index) => (
+        {filteredPosts.map(post => (
           <li key={post.id}>
             <h4>
               <Link href={`/post?id=${post.id}`} as={`/post/${post.id}`}>
                 <a>
-                  {index + 1}. {post.title}
+                  {post.id}. {post.title}
                 </a>
               </Link>
             </h4>
