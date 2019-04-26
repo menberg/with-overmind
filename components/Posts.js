@@ -16,7 +16,8 @@ export default ({ overmind }) => {
   }
   return (
     <div>
-      <h4>Show count</h4>
+      <hr />
+      <span>Show count: </span>
       <input
         type='number'
         min='0'
@@ -27,20 +28,18 @@ export default ({ overmind }) => {
           actions.changeShowCount(Math.floor(event.target.value))
         }
       />
-      <h5 onClick={actions.switchStateMode}>
+      <button onClick={actions.switchStateMode}>
         {state.useDerivedState ? 'Using Derived State' : 'Using Getter'}
-      </h5>
+      </button>
       <ul>
         {filteredPosts.map(post => (
           <li key={post.id}>
             <h4>
               <Link href={`/post?id=${post.id}`} as={`/post/${post.id}`}>
-                <a>
-                  {post.id}. {post.title}
-                </a>
+                <a>{`${post.id}. ${post.title}`}</a>
               </Link>
             </h4>
-            {post.body}
+            <pre>{post.body}</pre>
           </li>
         ))}
       </ul>
