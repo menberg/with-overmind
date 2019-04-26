@@ -48,10 +48,7 @@ export const overmindFactory = (options = {}) => {
   const { transmitState, isServer } = options
   // always reinitialize Overmind for each new server request
   if (isServer) {
-    // TODO: NEW API PROPOSAL: disable Overmind's hotReloadingCache, PR outstanding
-    overmind = createOvermind(configFactory(transmitState), {
-      disableCache: true
-    })
+    overmind = createOvermind(configFactory(transmitState))
     useOvermind = createHook(overmind)
   }
   if (!overmind) {
