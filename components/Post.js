@@ -12,8 +12,8 @@ export default ({ overmind }) => {
   }
   return (
     <div>
-      <h4>{state.post.title}</h4>
-      <p>{state.post.body}</p>
+      <h4>{`${state.post.id}. ${state.post.title}`}</h4>
+      <pre>{state.post.body}</pre>
     </div>
   )
 }
